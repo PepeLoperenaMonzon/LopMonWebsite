@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../consts';
+---
+
+<BaseLayout
+  title={`Política de privacidad | ${SITE.name}`}
+  description={`Política de privacidad de ${SITE.legalName}. Cómo tratamos los datos personales que nos facilitas.`}
+  canonicalPath="/privacidad"
+>
+  <Header />
+  <main id="contenido" class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <h1 class="mb-8 text-3xl font-bold text-slate-900">Política de privacidad</h1>
+    <div class="space-y-6 text-slate-700">
+      <p class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+        Revisa y completa este texto con tu abogado o asesor si es necesario. Actualiza el responsable del tratamiento
+        con tus datos reales.
+      </p>
+
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">1. Responsable del tratamiento</h2>
+        <ul class="list-disc space-y-1 pl-5">
+          <li>Responsable: [Nombre completo o razón social] — {SITE.legalName}</li>
+          <li>Email de contacto: <a class="text-brand-700 underline" href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li>Domicilio: [Dirección], {SITE.location.city}, {SITE.location.region}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">2. Datos que recogemos</h2>
+        <p>
+          A través del formulario de contacto podemos tratar: nombre o empresa, email o teléfono, y el contenido del
+          mensaje que nos envías.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">3. Finalidad y base legal</h2>
+        <p>
+          Tratamos tus datos para responder a tu consulta y, en su caso, elaborar un presupuesto o prestar servicios
+          solicitados. La base legal es tu consentimiento (art. 6.1.a RGPD) y/o la aplicación de medidas precontractuales
+          a petición tuya (art. 6.1.b RGPD).
+        </p>
+      </section>
+
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">4. Conservación</h2>
+        <p>
+          Conservaremos tus datos el tiempo necesario para gestionar la consulta y, si no hay relación comercial
+          posterior, como máximo [plazo, p. ej. 1 año], salvo obligación legal de conservación.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">5. Destinatarios</h2>
+        <p>
+          Podemos utilizar proveedores de envío de formularios (p. ej. Formspree) que actúan como encargados del
+          tratamiento. No vendemos tus datos a terceros.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">6. Derechos</h2>
+        <p>
+          Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad
+          escribiendo a <a class="text-brand-700 underline" href={`mailto:${SITE.email}`}>{SITE.email}</a>. También
+          puedes reclamar ante la Agencia Española de Protección de Datos (
+          <a class="text-brand-700 underline" href="https://www.aepd.es" rel="noopener noreferrer" target="_blank"
+            >www.aepd.es</a
+          >).
+        </p>
+      </section>
+
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">7. Cookies</h2>
+        <p>
+          Este sitio no utiliza cookies de análisis ni publicidad de forma predeterminada. Si en el futuro se
+          incorporan, se informará y se solicitará el consentimiento cuando corresponda.
+        </p>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
