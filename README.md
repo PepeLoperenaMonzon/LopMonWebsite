@@ -9,7 +9,6 @@ Landing page de **LopMon Soluciones Tecnológicas** — Astro + Tailwind, lista 
 ## Desarrollo
 
 ```bash
-cp .env.example .env
 npm install
 npm run dev
 ```
@@ -20,12 +19,13 @@ Abre [http://localhost:4321](http://localhost:4321).
 
 1. **Dominio** — Actualiza `site` en `astro.config.mjs`, `SITE.url` en `src/consts.ts` y la URL del sitemap en `public/robots.txt`.
 2. **Email** — Cambia `SITE.email` en `src/consts.ts`.
-3. **Formulario** — Crea un formulario en [Formspree](https://formspree.io), copia el ID (`f/xxxxxx`) a `.env`:
+3. **Formulario** — Crea un formulario en [Formspree](https://formspree.io) y define el ID en un `.env` local (ignorado por git):
 
    ```bash
    PUBLIC_FORMSPREE_ID=xxxxxx
    ```
 
+   En el hosting, añade la misma variable en el panel de entorno.
 4. **Legal** — Completa los campos entre corchetes en `/aviso-legal` y `/privacidad` (titular, NIF/CIF, domicilio).
 
 ## Build y preview
