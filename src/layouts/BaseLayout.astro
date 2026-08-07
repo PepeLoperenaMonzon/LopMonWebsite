@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import { SITE } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title = `${SITE.name} | ${SITE.tagline} en Canarias`,
+  description = SITE.description,
+  canonicalPath = '/',
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(canonicalPath, Astro.site ?? SITE.url);
+const ogImage = new URL('/og-image.svg', Astro.site ?? SITE.url);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${SITE.url}/#business`,
+  name: SITE.legalName,
+  alternateName: SITE.name,
+  description: SITE.description,
+  url: SITE.url,
+  email: SITE.email,
+  ...(SITE.phone ? { telephone: SITE.phone } : {}),
+  image: ogImage.href,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: SITE.location.city,
+    addressRegion: SITE.location.region,
+    addressCountry: SITE.location.country,
+  },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: SITE.location.areaServed,
+  },
+  priceRange: '€€',
+};
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow" />
+    )}
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="theme-color" content="#1e3a8a" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="bg-slate-50 text-slate-800 antialiased">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg"
+    >
+      Saltar al contenido
+    </a>
+    <slot />
+  </body>
+</html>
