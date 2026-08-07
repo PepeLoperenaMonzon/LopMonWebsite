@@ -1,0 +1,164 @@
+---
+import { SITE } from '../consts';
+
+const formAction = SITE.formspreeId
+  ? `https://formspree.io/f/${SITE.formspreeId}`
+  : '';
+---
+
+<section id="contacto" class="border-t border-slate-200 bg-white py-20" aria-labelledby="contacto-heading">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div class="rounded-3xl border border-brand-100 bg-brand-50 p-8 text-center shadow-sm md:p-12">
+      <h2 id="contacto-heading" class="mb-4 text-3xl font-bold text-slate-900">
+        ¿Tienes un proyecto en mente o un problema que resolver?
+      </h2>
+      <p class="mb-8 text-lg text-slate-600">
+        Trabajamos con presupuestos a medida y bolsas de horas flexibles. Hablemos de cómo la tecnología puede
+        hacer tu negocio más eficiente.
+      </p>
+
+      {
+        !formAction && (
+          <div class="mx-auto mb-6 max-w-md rounded-lg border border-amber-200 bg-amber-50 p-4 text-left text-sm text-amber-900">
+            <p class="font-medium">Formulario pendiente de configurar</p>
+            <p class="mt-1">
+              Añade <code class="rounded bg-amber-100 px-1">PUBLIC_FORMSPREE_ID</code> en tu fichero{' '}
+              <code class="rounded bg-amber-100 px-1">.env</code> (ver README). Mientras tanto puedes escribir a{' '}
+              <a class="font-medium underline" href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+            </p>
+          </div>
+        )
+      }
+
+      <form
+        id="contact-form"
+        class="mx-auto max-w-md space-y-4 text-left"
+        method="POST"
+        action={formAction || undefined}
+        data-formspree={formAction || undefined}
+      >
+        <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input type="hidden" name="_subject" value="Consulta desde lopmon.com" />
+
+        <div>
+          <label for="name" class="mb-1 block text-sm font-medium text-slate-700">Nombre o Empresa</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            autocomplete="organization"
+            class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
+            placeholder="Ej. Taller Martínez S.L."
+          />
+        </div>
+
+        <div>
+          <label for="contact" class="mb-1 block text-sm font-medium text-slate-700">Email o Teléfono</label>
+          <input
+            id="contact"
+            name="contact"
+            type="text"
+            required
+            autocomplete="email"
+            class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
+            placeholder="Para que podamos contactarte"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="mb-1 block text-sm font-medium text-slate-700">¿En qué te podemos ayudar?</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="3"
+            required
+            class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
+            placeholder="Ej. Necesitamos actualizar nuestro sistema, tenemos un error en la web..."
+          ></textarea>
+        </div>
+
+        <p class="text-xs text-slate-500">
+          Al enviar aceptas nuestra
+          <a href="/privacidad" class="underline hover:text-brand-700">política de privacidad</a>.
+        </p>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full rounded-lg bg-brand-600 px-4 py-3 font-bold text-white shadow-md transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          Solicitar consulta gratuita
+        </button>
+
+        <p id="form-error" class="hidden text-sm text-red-600" role="alert"></p>
+      </form>
+
+      <div
+        id="success-message"
+        class="mx-auto mt-6 hidden max-w-md flex-col items-center rounded-lg border border-green-200 bg-green-100 p-4 text-green-800"
+        role="status"
+      >
+        <svg class="mb-2 h-10 w-10 text-green-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        <p class="font-medium">¡Mensaje enviado con éxito!</p>
+        <p class="mt-1 text-sm">Nos pondremos en contacto contigo pronto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const success = document.getElementById('success-message');
+  const errorEl = document.getElementById('form-error');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+
+  form?.addEventListener('submit', async (e) => {
+    const endpoint = form.dataset.formspree;
+    if (!endpoint) {
+      e.preventDefault();
+      if (errorEl) {
+        errorEl.textContent =
+          'El formulario aún no está conectado. Configura PUBLIC_FORMSPREE_ID o escribe al email de contacto.';
+        errorEl.classList.remove('hidden');
+      }
+      return;
+    }
+
+    e.preventDefault();
+    errorEl?.classList.add('hidden');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+    }
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (!res.ok) throw new Error('Error al enviar');
+
+      form.classList.add('hidden');
+      success?.classList.remove('hidden');
+      success?.classList.add('flex');
+    } catch {
+      if (errorEl) {
+        errorEl.textContent = 'No se pudo enviar el mensaje. Inténtalo de nuevo o escribe por email.';
+        errorEl.classList.remove('hidden');
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Solicitar consulta gratuita';
+      }
+    }
+  });
+</script>
