@@ -14,11 +14,13 @@ export const SITE = {
     country: 'ES',
     areaServed: 'Canarias',
   },
-  /** Public contact email shown on the site and used in legal pages */
+  /** Public contact email */
   email: 'pepeloperena@gmail.com',
-  phone: '',
-  /** Formspree form ID from https://formspree.io — leave empty to show setup hint */
-  formspreeId: import.meta.env.PUBLIC_FORMSPREE_ID ?? '',
+  /**
+   * WhatsApp Business number in international format, digits only (e.g. 34612345678).
+   * Leave empty until you have the number — the WhatsApp button stays hidden.
+   */
+  whatsapp: '34606646087',
   social: {
     // Add when available, e.g. 'https://www.linkedin.com/company/lopmon'
   },
