@@ -30,7 +30,7 @@ const jsonLd = {
   description: SITE.description,
   url: SITE.url,
   email: SITE.email,
-  ...(SITE.phone ? { telephone: SITE.phone } : {}),
+  ...(SITE.whatsapp ? { telephone: `+${SITE.whatsapp}` } : {}),
   image: ogImage.href,
   address: {
     '@type': 'PostalAddress',
