@@ -22,6 +22,6 @@ export const SITE = {
    */
   whatsapp: '34606646087',
   social: {
-    // Add when available, e.g. 'https://www.linkedin.com/company/lopmon'
+    linkedin: 'https://www.linkedin.com/in/jose-loperena-monz%C3%B3n-7430a797/',
   },
 } as const;
