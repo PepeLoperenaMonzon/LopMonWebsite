@@ -7,7 +7,7 @@ const services = [
     items: ['Diagnóstico y reparación rápida', 'Solución a problemas de red y SO'],
     iconBg: 'bg-blue-100',
     iconColor: 'text-brand-600',
-    icon: 'wrench',
+    icon: 'support',
     featured: false,
   },
   {
@@ -27,7 +27,7 @@ const services = [
     items: ['Optimización de Bases de Datos', 'Auditoría, copias de seguridad y redes'],
     iconBg: 'bg-orange-100',
     iconColor: 'text-orange-600',
-    icon: 'shield',
+    icon: 'alert',
     featured: false,
   },
 ] as const;
@@ -52,13 +52,13 @@ const services = [
               </p>
             )}
             <div class={`mb-6 flex h-14 w-14 items-center justify-center rounded-xl ${service.iconBg}`}>
-              {service.icon === 'wrench' && (
+              {service.icon === 'support' && (
                 <svg class={`h-7 w-7 ${service.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="1.75"
-                    d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.493a2.548 2.548 0 1 1 3.586-3.586L13.83 9.3"
+                    d="M4.5 12a7.5 7.5 0 1 1 15 0v3a2.25 2.25 0 0 1-2.25 2.25H15a.75.75 0 0 1-.75-.75v-3A.75.75 0 0 1 15 12.75h3M4.5 15.75h3A.75.75 0 0 0 8.25 15v-1.5a.75.75 0 0 0-.75-.75h-3m7.5 6.75h1.5"
                   />
                 </svg>
               )}
@@ -67,13 +67,13 @@ const services = [
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
                 </svg>
               )}
-              {service.icon === 'shield' && (
+              {service.icon === 'alert' && (
                 <svg class={`h-7 w-7 ${service.iconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="1.75"
-                    d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 12 2.25c2.99 0 5.79 1.1 7.9 2.93a11.94 11.94 0 0 1 3.35 8.57c0 5.25-3.58 9.69-8.45 11.03a12.1 12.1 0 0 1-5.6 0C4.33 20.94.75 16.5.75 11.25c0-3.28 1.32-6.25 3.45-8.42A11.96 11.96 0 0 1 12 2.714Z"
+                    d="M12 9v3.75m0 3h.008v.008H12v-.008Zm8.25-.75c0 4.556-3.694 8.25-8.25 8.25S3.75 16.806 3.75 12.25 7.444 4 12 4s8.25 3.694 8.25 8.25Z"
                   />
                 </svg>
               )}
