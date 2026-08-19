@@ -4,7 +4,7 @@ export const SITE = {
   legalName: 'LopMon Soluciones Tecnológicas',
   tagline: 'Soluciones Tecnológicas',
   description:
-    'Soporte informático, desarrollo web y seguridad para PYMEs en Las Palmas y toda Canarias. Tu partner tecnológico para crecer sin parar.',
+    'Resuelvo incidencias, mejoras web y procesos para pymes y profesionales. Proyectos puntuales y soporte mensual. Canarias y remoto.',
   url: 'https://lopmon.com',
   locale: 'es_ES',
   lang: 'es',
