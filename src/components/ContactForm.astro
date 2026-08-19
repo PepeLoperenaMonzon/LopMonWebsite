@@ -8,10 +8,11 @@ const hasWhatsApp = Boolean(SITE.whatsapp);
   <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
     <div class="rounded-3xl border border-brand-100 bg-brand-50 p-8 text-center shadow-sm md:p-12">
       <h2 id="contacto-heading" class="mb-4 text-3xl font-bold text-slate-900">
-        ¿Tienes un proyecto en mente o un problema que resolver?
+        ¿Tienes un proyecto o un problema que resolver?
       </h2>
       <p class="mb-8 text-lg text-slate-600">
-        Trabajamos con presupuestos a medida y bolsas de horas flexibles. Rellena el mensaje y ábrelo en tu correo
+        Cuéntame qué te está frenando y te respondo con una propuesta clara. Hago proyectos puntuales y también ofrezco
+        soporte mensual para que tu tecnología no vuelva a ser un problema. Rellena el mensaje y ábrelo en tu correo
         {hasWhatsApp ? ' o por WhatsApp' : ''}.
       </p>
 
@@ -38,19 +39,19 @@ const hasWhatsApp = Boolean(SITE.whatsapp);
             required
             autocomplete="email"
             class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
-            placeholder="Para que podamos contactarte"
+            placeholder="Para contactarte"
           />
         </div>
 
         <div>
-          <label for="message" class="mb-1 block text-sm font-medium text-slate-700">¿En qué te podemos ayudar?</label>
+          <label for="message" class="mb-1 block text-sm font-medium text-slate-700">¿Qué necesitas resolver?</label>
           <textarea
             id="message"
             name="message"
             rows="3"
             required
             class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
-            placeholder="Ej. Necesitamos actualizar nuestro sistema, tenemos un error en la web..."
+            placeholder="Ej. Perdemos tiempo con tareas manuales y la web no convierte como debería..."
           ></textarea>
         </div>
 
