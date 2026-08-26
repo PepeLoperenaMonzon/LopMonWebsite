@@ -22,6 +22,6 @@ export const SITE = {
    */
   whatsapp: '34606646087',
   social: {
-    linkedin: 'https://www.linkedin.com/in/jose-loperena-monz%C3%B3n-7430a797/',
+    linkedin: 'https://www.linkedin.com/company/lopmon-soluciones-tecnol%C3%B3gicas',
   },
 } as const;
