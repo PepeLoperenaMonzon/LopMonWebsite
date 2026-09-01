@@ -5,6 +5,9 @@ export const es: Translations = {
     title: 'LopMon | Soluciones Tecnológicas en Canarias',
     description:
       'Resuelvo incidencias, mejoras web y procesos para pymes y profesionales. Proyectos puntuales y soporte mensual. Canarias y remoto.',
+    keywords:
+      'soporte informático Canarias, desarrollo web Las Palmas, consultor IT pymes, urgencias 24h, mantenimiento informático, LopMon',
+    ogImageAlt: 'LopMon — Soluciones tecnológicas para pymes en Canarias',
     skipToContent: 'Saltar al contenido',
   },
   header: {

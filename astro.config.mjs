@@ -16,5 +16,20 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) =>
+        !page.includes('/aviso-legal') &&
+        !page.includes('/privacidad') &&
+        !page.includes('/legal-notice') &&
+        !page.includes('/privacy'),
+      i18n: {
+        defaultLocale: 'es',
+        locales: {
+          es: 'es-ES',
+          en: 'en',
+        },
+      },
+    }),
+  ],
 });

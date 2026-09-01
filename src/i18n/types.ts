@@ -4,6 +4,8 @@ export interface Translations {
   meta: {
     title: string;
     description: string;
+    keywords: string;
+    ogImageAlt: string;
     skipToContent: string;
   };
   header: {

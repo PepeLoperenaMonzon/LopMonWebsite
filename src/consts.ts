@@ -24,4 +24,5 @@ export const SITE = {
   social: {
     linkedin: 'https://www.linkedin.com/company/lopmon-soluciones-tecnol%C3%B3gicas',
   },
+  author: 'Pepe Loperena',
 } as const;

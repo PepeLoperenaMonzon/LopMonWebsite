@@ -5,6 +5,9 @@ export const en: Translations = {
     title: 'LopMon | Technology Solutions',
     description:
       'I resolve incidents, web improvements and business processes for SMEs and professionals. One-off projects and monthly support. Canary Islands and remote.',
+    keywords:
+      'IT support Canary Islands, web development Las Palmas, SME technology consultant, 24h emergencies, managed IT support, LopMon',
+    ogImageAlt: 'LopMon — Technology solutions for SMEs in the Canary Islands',
     skipToContent: 'Skip to content',
   },
   header: {
