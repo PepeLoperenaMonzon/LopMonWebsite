@@ -8,5 +8,5 @@
   <rect width="1200" height="630" fill="url(#bg)"/>
   <path d="M120 180 L220 230 V360 L120 410 L20 360 V230 Z" fill="#60a5fa" opacity="0.9"/>
   <text x="280" y="300" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="96" font-weight="700">LopMon</text>
-  <text x="280" y="370" fill="#bfdbfe" font-family="Inter, Arial, sans-serif" font-size="36">Soluciones Tecnológicas en Canarias</text>
+  <text x="280" y="370" fill="#bfdbfe" font-family="Inter, Arial, sans-serif" font-size="36">Soluciones Tecnologicas en Canarias</text>
 </svg>
