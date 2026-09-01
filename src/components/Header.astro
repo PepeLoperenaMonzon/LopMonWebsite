@@ -1,15 +1,27 @@
 ---
+import type { Locale, Translations } from '../i18n';
+import { anchorHref } from '../i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  locale: Locale;
+  t: Translations;
+}
+
+const { locale, t } = Astro.props;
+const home = locale === 'en' ? '/en/' : '/';
+
 const links = [
-  { href: '/#servicios', label: 'Servicios' },
-  { href: '/#urgencias', label: 'Urgencias 24h' },
-  { href: '/#sobre-mi', label: 'Sobre mí' },
-  { href: '/#contacto', label: 'Contacto' },
+  { href: anchorHref(locale, 'servicios'), label: t.header.nav.services },
+  { href: anchorHref(locale, 'urgencias'), label: t.header.nav.emergencies },
+  { href: anchorHref(locale, 'sobre-mi'), label: t.header.nav.about },
+  { href: anchorHref(locale, 'contacto'), label: t.header.nav.contact },
 ];
 ---
 
 <header class="sticky top-0 z-50 border-b border-slate-100 bg-white/95 shadow-sm backdrop-blur">
   <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Principal">
-    <a href="/" class="flex items-center gap-2 text-slate-900" aria-label="LopMon — Inicio">
+    <a href={home} class="flex items-center gap-2 text-slate-900" aria-label={t.header.homeLabel}>
       <svg class="h-8 w-8 text-brand-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path
           d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7L12 2.5Zm0 2.3L5.5 8.2v7.6L12 19.2l6.5-3.4V8.2L12 4.8Z"
@@ -17,11 +29,11 @@ const links = [
       </svg>
       <span class="text-2xl font-bold tracking-tight">LopMon</span>
       <span class="ml-1 hidden border-l border-slate-300 pl-2 text-sm text-slate-500 md:inline">
-        Soluciones Tecnológicas
+        {t.header.tagline}
       </span>
     </a>
 
-    <div class="hidden items-center gap-8 md:flex">
+    <div class="hidden items-center gap-6 md:flex">
       {
         links.map((link) => (
           <a href={link.href} class="font-medium text-slate-600 transition hover:text-brand-600">
@@ -29,29 +41,33 @@ const links = [
           </a>
         ))
       }
+      <LanguageSwitcher locale={locale} switchToEn={t.header.switchToEn} switchToEs={t.header.switchToEs} />
       <a
-        href="/#contacto"
+        href={anchorHref(locale, 'contacto')}
         class="rounded-lg bg-brand-600 px-5 py-2.5 font-medium text-white shadow-md shadow-brand-500/30 transition hover:bg-brand-700"
       >
-        Solicitar Presupuesto
+        {t.header.cta}
       </a>
     </div>
 
-    <button
-      type="button"
-      id="menu-toggle"
-      class="inline-flex items-center justify-center rounded-lg p-2 text-slate-700 hover:bg-slate-100 md:hidden"
-      aria-controls="mobile-menu"
-      aria-expanded="false"
-      aria-label="Abrir menú"
-    >
-      <svg id="icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-      <svg id="icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"></path>
-      </svg>
-    </button>
+    <div class="flex items-center gap-2 md:hidden">
+      <LanguageSwitcher locale={locale} switchToEn={t.header.switchToEn} switchToEs={t.header.switchToEs} />
+      <button
+        type="button"
+        id="menu-toggle"
+        class="inline-flex items-center justify-center rounded-lg p-2 text-slate-700 hover:bg-slate-100"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label={t.header.openMenu}
+      >
+        <svg id="icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg id="icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white md:hidden" hidden>
@@ -67,27 +83,27 @@ const links = [
         ))
       }
       <a
-        href="/#contacto"
+        href={anchorHref(locale, 'contacto')}
         class="mobile-nav-link mt-2 block rounded-lg bg-brand-600 px-3 py-3 text-center font-medium text-white hover:bg-brand-700"
       >
-        Solicitar Presupuesto
+        {t.header.cta}
       </a>
     </div>
   </div>
 </header>
 
-<script>
+<script define:vars={{ openMenu: t.header.openMenu, closeMenu: t.header.closeMenu }}>
   const toggle = document.getElementById('menu-toggle');
   const menu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
 
-  function setOpen(open: boolean) {
+  function setOpen(open) {
     if (!toggle || !menu || !iconOpen || !iconClose) return;
     menu.classList.toggle('hidden', !open);
     menu.hidden = !open;
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    toggle.setAttribute('aria-label', open ? closeMenu : openMenu);
     iconOpen.classList.toggle('hidden', open);
     iconClose.classList.toggle('hidden', !open);
   }

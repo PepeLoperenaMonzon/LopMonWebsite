@@ -1,4 +1,13 @@
 ---
+import type { Locale, Translations } from '../i18n';
+import { anchorHref } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  t: Translations;
+}
+
+const { locale, t } = Astro.props;
 ---
 
 <section class="relative overflow-hidden bg-brand-900 text-white" aria-labelledby="hero-heading">
@@ -15,30 +24,29 @@
           <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
           <span class="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
         </span>
-        Base en Canarias, servicio local y remoto
+        {t.hero.badge}
       </p>
 
       <h1 id="hero-heading" class="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-        Tu Partner Tecnológico para <span class="text-brand-400">crecer y no parar.</span>
+        {t.hero.title} <span class="text-brand-400">{t.hero.titleHighlight}</span>
       </h1>
 
       <p class="mb-8 max-w-2xl text-lg text-slate-300 md:text-xl">
-        Incidencias, procesos que te quitan tiempo, webs que no rinden o sistemas desordenados: analizo la situación,
-        propongo la solución y la ejecuto. Hablas conmigo de principio a fin.
+        {t.hero.subtitle}
       </p>
 
       <div class="flex flex-col gap-4 sm:flex-row">
         <a
-          href="#contacto"
+          href={anchorHref(locale, 'contacto')}
           class="rounded-lg bg-white px-8 py-3.5 text-center text-lg font-semibold text-brand-900 shadow-lg transition hover:bg-slate-100"
         >
-          Cuéntame tu problema
+          {t.hero.ctaPrimary}
         </a>
         <a
-          href="#servicios"
+          href={anchorHref(locale, 'servicios')}
           class="rounded-lg border border-brand-400 px-8 py-3.5 text-center text-lg font-medium text-brand-100 transition hover:bg-brand-800 hover:text-white"
         >
-          Ver Servicios
+          {t.hero.ctaSecondary}
         </a>
       </div>
     </div>

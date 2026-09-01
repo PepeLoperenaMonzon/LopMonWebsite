@@ -1,24 +1,31 @@
 ---
 import { SITE } from '../consts';
+import type { Locale, Translations } from '../i18n';
 
+interface Props {
+  locale: Locale;
+  t: Translations;
+}
+
+const { locale, t } = Astro.props;
 const hasWhatsApp = Boolean(SITE.whatsapp);
+const privacyHref = locale === 'en' ? '/en/privacy/' : '/privacidad/';
 ---
 
 <section id="contacto" class="border-t border-slate-200 bg-white py-20" aria-labelledby="contacto-heading">
   <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
     <div class="rounded-3xl border border-brand-100 bg-brand-50 p-8 text-center shadow-sm md:p-12">
       <h2 id="contacto-heading" class="mb-4 text-3xl font-bold text-slate-900">
-        ¿Tienes un proyecto o un problema que resolver?
+        {t.contact.title}
       </h2>
       <p class="mb-8 text-lg text-slate-600">
-        Cuéntame qué te está frenando y te respondo con una propuesta clara. Hago proyectos puntuales y también ofrezco
-        soporte mensual para que tu tecnología no vuelva a ser un problema. Rellena el mensaje y ábrelo en tu correo
-        {hasWhatsApp ? ' o por WhatsApp' : ''}.
+        {t.contact.intro}
+        {hasWhatsApp ? t.contact.introWhatsApp : ''}.
       </p>
 
       <form id="contact-form" class="mx-auto max-w-md space-y-4 text-left">
         <div>
-          <label for="name" class="mb-1 block text-sm font-medium text-slate-700">Nombre o Empresa</label>
+          <label for="name" class="mb-1 block text-sm font-medium text-slate-700">{t.contact.nameLabel}</label>
           <input
             id="name"
             name="name"
@@ -26,12 +33,12 @@ const hasWhatsApp = Boolean(SITE.whatsapp);
             required
             autocomplete="organization"
             class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
-            placeholder="Ej. Taller Martínez S.L."
+            placeholder={t.contact.namePlaceholder}
           />
         </div>
 
         <div>
-          <label for="contact" class="mb-1 block text-sm font-medium text-slate-700">Email o Teléfono</label>
+          <label for="contact" class="mb-1 block text-sm font-medium text-slate-700">{t.contact.contactLabel}</label>
           <input
             id="contact"
             name="contact"
@@ -39,25 +46,25 @@ const hasWhatsApp = Boolean(SITE.whatsapp);
             required
             autocomplete="email"
             class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
-            placeholder="Para contactarte"
+            placeholder={t.contact.contactPlaceholder}
           />
         </div>
 
         <div>
-          <label for="message" class="mb-1 block text-sm font-medium text-slate-700">¿Qué necesitas resolver?</label>
+          <label for="message" class="mb-1 block text-sm font-medium text-slate-700">{t.contact.messageLabel}</label>
           <textarea
             id="message"
             name="message"
             rows="3"
             required
             class="w-full rounded-lg border border-slate-300 px-4 py-2.5 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500"
-            placeholder="Ej. Perdemos tiempo con tareas manuales y la web no convierte como debería..."
+            placeholder={t.contact.messagePlaceholder}
           ></textarea>
         </div>
 
         <p class="text-xs text-slate-500">
-          Al continuar aceptas nuestra{' '}
-          <a href="/privacidad" class="underline hover:text-brand-700">política de privacidad</a>.
+          {t.contact.privacy}{' '}
+          <a href={privacyHref} class="underline hover:text-brand-700">{t.contact.privacyLink}</a>.
         </p>
 
         <div class={`grid gap-3 ${hasWhatsApp ? 'sm:grid-cols-2' : ''}`}>
@@ -66,7 +73,7 @@ const hasWhatsApp = Boolean(SITE.whatsapp);
             data-channel="email"
             class="rounded-lg bg-brand-600 px-4 py-3 font-bold text-white shadow-md transition hover:bg-brand-700"
           >
-            Abrir en el correo
+            {t.contact.emailBtn}
           </button>
           {
             hasWhatsApp && (
@@ -75,14 +82,14 @@ const hasWhatsApp = Boolean(SITE.whatsapp);
                 data-channel="whatsapp"
                 class="rounded-lg border border-emerald-600 bg-emerald-600 px-4 py-3 font-bold text-white shadow-md transition hover:bg-emerald-700"
               >
-                Abrir en WhatsApp
+                {t.contact.whatsappBtn}
               </button>
             )
           }
         </div>
 
         <p class="text-center text-sm text-slate-500">
-          O escribe directamente a{' '}
+          {t.contact.orEmail}{' '}
           <a class="font-medium text-brand-700 underline" href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </p>
       </form>
@@ -90,17 +97,17 @@ const hasWhatsApp = Boolean(SITE.whatsapp);
   </div>
 </section>
 
-<script define:vars={{ email: SITE.email, whatsapp: SITE.whatsapp }}>
+<script define:vars={{ email: SITE.email, whatsapp: SITE.whatsapp, formIntro: t.contact.formIntro, formFields: t.contact.formFields, emailSubject: t.contact.emailSubject }}>
   const form = document.getElementById('contact-form');
 
   function buildBody(name, contact, message) {
     return [
-      `Hola, me pongo en contacto desde la web de LopMon.`,
+      formIntro,
       ``,
-      `Nombre / Empresa: ${name}`,
-      `Contacto: ${contact}`,
+      `${formFields.name}: ${name}`,
+      `${formFields.contact}: ${contact}`,
       ``,
-      `Mensaje:`,
+      `${formFields.message}:`,
       message,
     ].join('\n');
   }
@@ -124,7 +131,7 @@ const hasWhatsApp = Boolean(SITE.whatsapp);
       return;
     }
 
-    const subject = encodeURIComponent(`Consulta desde la web — ${name}`);
+    const subject = encodeURIComponent(`${emailSubject} — ${name}`);
     window.location.href = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(body)}`;
   });
 </script>

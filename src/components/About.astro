@@ -1,4 +1,11 @@
 ---
+import type { Translations } from '../i18n';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
 ---
 
 <section id="sobre-mi" class="border-t border-slate-200 bg-white py-20" aria-labelledby="sobre-mi-heading">
@@ -7,31 +14,25 @@
       <div class="mx-auto w-full max-w-xs lg:mx-0">
         <img
           src="/selfie.jpeg"
-          alt="Pepe Loperena, fundador de LopMon"
+          alt={t.about.imageAlt}
           class="aspect-square w-full rounded-3xl object-cover shadow-lg shadow-slate-200"
           loading="lazy"
         />
       </div>
 
       <div>
-        <p class="mb-3 text-sm font-semibold tracking-wide text-brand-600 uppercase">Sobre mí</p>
+        <p class="mb-3 text-sm font-semibold tracking-wide text-brand-600 uppercase">{t.about.label}</p>
         <h2 id="sobre-mi-heading" class="mb-6 text-3xl font-bold text-slate-900">
-          Quién está detrás de LopMon
+          {t.about.title}
         </h2>
         <div class="space-y-4 text-lg leading-relaxed text-slate-600">
           <p>
-            Soy <strong class="font-semibold text-slate-900">Pepe Loperena</strong>,
-            <span class="font-medium text-brand-700"> técnico y desarrollador con base en Canarias</span>. LopMon es mi
-            forma de ofrecer a pymes y profesionales un interlocutor técnico claro: entiendo el negocio y la parte
-            técnica.
+            {t.about.nameIntro}{' '}
+            <strong class="font-semibold text-slate-900">Pepe Loperena</strong>,
+            <span class="font-medium text-brand-700"> {t.about.role}</span>. {t.about.paragraphs[0]}
           </p>
-          <p>
-            Desde el primer mensaje hablas conmigo. Analizo tu situación, te propongo una solución clara y la ejecuto.
-          </p>
-          <p>
-            Hago proyectos puntuales y ofrezco soporte continuo con bolsa de horas mensual. Trabajo con clientes en
-            Canarias y en remoto con empresas de otras ciudades.
-          </p>
+          <p>{t.about.paragraphs[1]}</p>
+          <p>{t.about.paragraphs[2]}</p>
         </div>
       </div>
     </div>
