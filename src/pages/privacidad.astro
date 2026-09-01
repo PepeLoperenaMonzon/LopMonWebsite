@@ -3,15 +3,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../consts';
+import { getTranslations } from '../i18n';
+
+const locale = 'es';
+const t = getTranslations(locale);
 ---
 
 <BaseLayout
-  title={`Política de privacidad | ${SITE.name}`}
+  locale={locale}
+  t={t}
+  title={`${t.legal.privacyTitle} | ${SITE.name}`}
   description={`Política de privacidad de ${SITE.legalName}. Cómo tratamos los datos personales que nos facilitas.`}
   canonicalPath="/privacidad"
   noindex={true}
 >
-  <Header />
+  <Header locale={locale} t={t} />
   <main id="contenido" class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
     <h1 class="mb-8 text-3xl font-bold text-slate-900">Política de privacidad</h1>
     <div class="space-y-6 text-slate-700">
@@ -78,5 +84,5 @@ import { SITE } from '../consts';
       </section>
     </div>
   </main>
-  <Footer />
+  <Footer locale={locale} t={t} />
 </BaseLayout>

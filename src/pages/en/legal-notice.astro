@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE } from '../../consts';
+import { getTranslations } from '../../i18n';
+
+const locale = 'en';
+const t = getTranslations(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  t={t}
+  title={`${t.legal.noticeTitle} | ${SITE.name}`}
+  description={`Legal notice for ${SITE.legalName}. Company information and terms of use.`}
+  canonicalPath="/en/legal-notice"
+  noindex={true}
+>
+  <Header locale={locale} t={t} />
+  <main id="contenido" class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <h1 class="mb-8 text-3xl font-bold text-slate-900">{t.legal.noticeTitle}</h1>
+    <div class="space-y-6 text-slate-700">
+      <p class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+        Replace bracketed fields with your real details (owner, tax ID, address) before publishing.
+      </p>
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">1. Identifying information</h2>
+        <ul class="mt-3 list-disc space-y-1 pl-5">
+          <li>Owner: [Full name or company name]</li>
+          <li>Tax ID: [NIF/CIF]</li>
+          <li>Address: [Full postal address], {SITE.location.city}, {SITE.location.region}</li>
+          <li>Email: <a class="text-brand-700 underline" href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li>Website: <a class="text-brand-700 underline" href={SITE.url}>{SITE.url}</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">2. Purpose</h2>
+        <p>This legal notice governs access to and use of {SITE.url}, owned by {SITE.legalName}.</p>
+      </section>
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">3. Terms of use</h2>
+        <p>Users agree to use the site contents and services appropriately and not for unlawful purposes.</p>
+      </section>
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">4. Intellectual property</h2>
+        <p>Site contents, designs, logos and code are protected. Reproduction without authorization is prohibited.</p>
+      </section>
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">5. Limitation of liability</h2>
+        <p>The owner is not liable for damages from misuse of the website or temporary unavailability.</p>
+      </section>
+      <section>
+        <h2 class="mb-2 text-xl font-semibold text-slate-900">6. Applicable law</h2>
+        <p>This notice is governed by Spanish law. Disputes shall be submitted to the courts of {SITE.location.city}.</p>
+      </section>
+    </div>
+  </main>
+  <Footer locale={locale} t={t} />
+</BaseLayout>

@@ -7,16 +7,20 @@ import Urgencias from '../components/Urgencias.astro';
 import About from '../components/About.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
+import { getTranslations } from '../i18n';
+
+const locale = 'es';
+const t = getTranslations(locale);
 ---
 
-<BaseLayout>
-  <Header />
+<BaseLayout locale={locale} t={t}>
+  <Header locale={locale} t={t} />
   <main id="contenido">
-    <Hero />
-    <Services />
-    <Urgencias />
-    <About />
-    <ContactForm />
+    <Hero locale={locale} t={t} />
+    <Services t={t} />
+    <Urgencias locale={locale} t={t} />
+    <About t={t} />
+    <ContactForm locale={locale} t={t} />
   </main>
-  <Footer />
+  <Footer locale={locale} t={t} />
 </BaseLayout>
