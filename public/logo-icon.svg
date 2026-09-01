@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" role="img" aria-label="LopMon">
+  <defs>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="144" height="144" rx="28" fill="url(#mark)"/>
+  <path d="M80 34 L118 52 V98 L80 116 L42 98 V52 Z" fill="#60a5fa"/>
+  <path d="M80 52 L104 64 V86 L80 98 L56 86 V64 Z" fill="#1e3a8a"/>
+</svg>
