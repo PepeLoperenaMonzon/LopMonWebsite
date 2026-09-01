@@ -1,8 +1,12 @@
 ---
 import '../styles/global.css';
 import { SITE } from '../consts';
+import type { Locale, Translations } from '../i18n';
+import { homePath } from '../i18n';
 
 interface Props {
+  locale: Locale;
+  t: Translations;
   title?: string;
   description?: string;
   canonicalPath?: string;
@@ -11,15 +15,21 @@ interface Props {
 }
 
 const {
-  title = `${SITE.name} | ${SITE.tagline} en Canarias`,
-  description = SITE.description,
-  canonicalPath = '/',
+  locale,
+  t,
+  title = t.meta.title,
+  description = t.meta.description,
+  canonicalPath,
   ogType = 'website',
   noindex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(canonicalPath, Astro.site ?? SITE.url);
+const path = canonicalPath ?? (locale === 'en' ? '/en/' : '/');
+const canonicalURL = new URL(path, Astro.site ?? SITE.url);
 const ogImage = new URL('/og-image.svg', Astro.site ?? SITE.url);
+const ogLocale = locale === 'en' ? 'en_US' : 'es_ES';
+const altLocale = locale === 'en' ? 'es' : 'en';
+const altPath = locale === 'en' ? homePath('es') : homePath('en');
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -27,7 +37,7 @@ const jsonLd = {
   '@id': `${SITE.url}/#business`,
   name: SITE.legalName,
   alternateName: SITE.name,
-  description: SITE.description,
+  description: t.meta.description,
   url: SITE.url,
   email: SITE.email,
   ...(SITE.whatsapp ? { telephone: `+${SITE.whatsapp}` } : {}),
@@ -47,7 +57,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={SITE.lang}>
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -61,9 +71,12 @@ const jsonLd = {
       <meta name="robots" content="index, follow" />
     )}
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang={locale} href={canonicalURL} />
+    <link rel="alternate" hreflang={altLocale} href={new URL(altPath, Astro.site ?? SITE.url)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(homePath('es'), Astro.site ?? SITE.url)} />
 
     <meta property="og:type" content={ogType} />
-    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -86,7 +99,7 @@ const jsonLd = {
       href="#contenido"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg"
     >
-      Saltar al contenido
+      {t.meta.skipToContent}
     </a>
     <slot />
   </body>
