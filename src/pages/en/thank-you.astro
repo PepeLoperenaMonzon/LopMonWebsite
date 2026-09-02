@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getTranslations } from '../../i18n';
+
+const locale = 'en';
+const t = getTranslations(locale);
+---
+
+<BaseLayout locale={locale} t={t} canonicalPath="/en/thank-you" noindex={true}>
+  <Header locale={locale} t={t} />
+  <main id="contenido" class="mx-auto max-w-xl px-4 py-24 text-center sm:px-6">
+    <div class="rounded-3xl border border-green-200 bg-green-50 p-10 shadow-sm">
+      <svg class="mx-auto mb-4 h-14 w-14 text-green-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path
+          fill-rule="evenodd"
+          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      <h1 class="mb-3 text-3xl font-bold text-slate-900">{t.thankYou.title}</h1>
+      <p class="mb-8 text-lg text-slate-600">{t.thankYou.message}</p>
+      <a
+        href="/en/"
+        class="inline-flex rounded-lg bg-brand-600 px-6 py-3 font-semibold text-white transition hover:bg-brand-700"
+      >
+        {t.thankYou.backHome}
+      </a>
+    </div>
+  </main>
+  <Footer locale={locale} t={t} />
+</BaseLayout>
