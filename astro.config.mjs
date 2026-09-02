@@ -22,7 +22,9 @@ export default defineConfig({
         !page.includes('/aviso-legal') &&
         !page.includes('/privacidad') &&
         !page.includes('/legal-notice') &&
-        !page.includes('/privacy'),
+        !page.includes('/privacy') &&
+        !page.includes('/gracias') &&
+        !page.includes('/thank-you'),
       i18n: {
         defaultLocale: 'es',
         locales: {
