@@ -25,4 +25,6 @@ export const SITE = {
     linkedin: 'https://www.linkedin.com/company/lopmon-soluciones-tecnol%C3%B3gicas',
   },
   author: 'Pepe Loperena',
+  /** Google Search Console HTML tag verification */
+  googleSiteVerification: 'h0eJdWZX_g9gVOGlu6i0aaeVVi6vF3HSsozGZJRdHlU',
 } as const;
