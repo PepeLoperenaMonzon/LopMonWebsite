@@ -62,7 +62,6 @@ export interface Translations {
   contact: {
     title: string;
     intro: string;
-    introWhatsApp: string;
     nameLabel: string;
     namePlaceholder: string;
     contactLabel: string;
@@ -71,16 +70,17 @@ export interface Translations {
     messagePlaceholder: string;
     privacy: string;
     privacyLink: string;
-    emailBtn: string;
-    whatsappBtn: string;
+    submitBtn: string;
     orEmail: string;
-    emailSubject: string;
-    formIntro: string;
-    formFields: {
-      name: string;
-      contact: string;
-      message: string;
-    };
+  };
+  whatsapp: {
+    label: string;
+    defaultMessage: string;
+  };
+  thankYou: {
+    title: string;
+    message: string;
+    backHome: string;
   };
   footer: {
     homeLabel: string;

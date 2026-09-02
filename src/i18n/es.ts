@@ -94,26 +94,26 @@ export const es: Translations = {
   contact: {
     title: '¿Tienes un proyecto o un problema que resolver?',
     intro:
-      'Cuéntame qué te está frenando y te respondo con una propuesta clara. Hago proyectos puntuales y también ofrezco soporte mensual para que tu tecnología no vuelva a ser un problema. Rellena el mensaje y ábrelo en tu correo',
-    introWhatsApp: ' o por WhatsApp',
+      'Cuéntame qué te está frenando y te respondo con una propuesta clara. Hago proyectos puntuales y también ofrezco soporte mensual para que tu tecnología no vuelva a ser un problema.',
     nameLabel: 'Nombre o Empresa',
     namePlaceholder: 'Ej. Taller Martínez S.L.',
     contactLabel: 'Email o Teléfono',
     contactPlaceholder: 'Para contactarte',
     messageLabel: '¿Qué necesitas resolver?',
     messagePlaceholder: 'Ej. Perdemos tiempo con tareas manuales y la web no convierte como debería...',
-    privacy: 'Al continuar aceptas nuestra',
+    privacy: 'Al enviar aceptas nuestra',
     privacyLink: 'política de privacidad',
-    emailBtn: 'Abrir en el correo',
-    whatsappBtn: 'Abrir en WhatsApp',
+    submitBtn: 'Enviar mensaje',
     orEmail: 'O escribe directamente a',
-    emailSubject: 'Consulta desde la web',
-    formIntro: 'Hola, me pongo en contacto desde la web de LopMon.',
-    formFields: {
-      name: 'Nombre / Empresa',
-      contact: 'Contacto',
-      message: 'Mensaje',
-    },
+  },
+  whatsapp: {
+    label: 'Contactar por WhatsApp',
+    defaultMessage: 'Hola, me gustaría información sobre los servicios de LopMon.',
+  },
+  thankYou: {
+    title: '¡Mensaje enviado!',
+    message: 'Gracias por contactar. Te responderé lo antes posible.',
+    backHome: 'Volver al inicio',
   },
   footer: {
     homeLabel: 'LopMon — Inicio',
