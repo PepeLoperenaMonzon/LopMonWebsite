@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { SITE } from '../consts';
 import type { Locale, Translations } from '../i18n';
 import { homePath, switchLocalePath } from '../i18n';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 
 interface Props {
   locale: Locale;
@@ -110,6 +111,9 @@ const jsonLd = [businessSchema, websiteSchema, ...(serviceListSchema ? [serviceL
     <meta name="description" content={description} />
     <meta name="keywords" content={t.meta.keywords} />
     <meta name="author" content={SITE.author} />
+    {SITE.googleSiteVerification && (
+      <meta name="google-site-verification" content={SITE.googleSiteVerification} />
+    )}
     <meta name="geo.region" content="ES-CN" />
     <meta name="geo.placename" content={SITE.location.city} />
 
@@ -142,9 +146,11 @@ const jsonLd = [businessSchema, websiteSchema, ...(serviceListSchema ? [serviceL
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={t.meta.ogImageAlt} />
 
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/logo-icon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#1e3a8a" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -157,5 +163,6 @@ const jsonLd = [businessSchema, websiteSchema, ...(serviceListSchema ? [serviceL
       {t.meta.skipToContent}
     </a>
     <slot />
+    {SITE.whatsapp && <WhatsAppFloat locale={locale} t={t} />}
   </body>
 </html>
