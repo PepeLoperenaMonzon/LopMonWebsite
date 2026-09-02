@@ -71,6 +71,7 @@ export interface Translations {
     privacy: string;
     privacyLink: string;
     submitBtn: string;
+    submitError: string;
     orEmail: string;
   };
   whatsapp: {

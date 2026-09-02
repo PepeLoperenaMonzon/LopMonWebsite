@@ -104,6 +104,7 @@ export const es: Translations = {
     privacy: 'Al enviar aceptas nuestra',
     privacyLink: 'política de privacidad',
     submitBtn: 'Enviar mensaje',
+    submitError: 'No se pudo enviar el mensaje. Inténtalo de nuevo o escríbeme por email.',
     orEmail: 'O escribe directamente a',
   },
   whatsapp: {

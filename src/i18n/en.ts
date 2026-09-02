@@ -104,6 +104,7 @@ export const en: Translations = {
     privacy: 'By submitting you accept our',
     privacyLink: 'privacy policy',
     submitBtn: 'Send message',
+    submitError: 'Could not send your message. Please try again or email me directly.',
     orEmail: 'Or write directly to',
   },
   whatsapp: {
