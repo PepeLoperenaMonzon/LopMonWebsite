@@ -8,8 +8,8 @@ interface Props {
 }
 
 const { locale, t } = Astro.props;
-const hasWhatsApp = Boolean(SITE.whatsapp);
 const privacyHref = locale === 'en' ? '/en/privacy/' : '/privacidad/';
+const successPath = locale === 'en' ? '/en/thank-you/' : '/gracias/';
 ---
 
 <section id="contacto" class="border-t border-slate-200 bg-white py-20" aria-labelledby="contacto-heading">
@@ -20,10 +20,26 @@ const privacyHref = locale === 'en' ? '/en/privacy/' : '/privacidad/';
       </h2>
       <p class="mb-8 text-lg text-slate-600">
         {t.contact.intro}
-        {hasWhatsApp ? t.contact.introWhatsApp : ''}.
       </p>
 
-      <form id="contact-form" class="mx-auto max-w-md space-y-4 text-left">
+      <form
+        name="contact"
+        method="POST"
+        action={successPath}
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="mx-auto max-w-md space-y-4 text-left"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="locale" value={locale} />
+
+        <p class="hidden" aria-hidden="true">
+          <label>
+            Don't fill this out:
+            <input name="bot-field" />
+          </label>
+        </p>
+
         <div>
           <label for="name" class="mb-1 block text-sm font-medium text-slate-700">{t.contact.nameLabel}</label>
           <input
@@ -67,26 +83,12 @@ const privacyHref = locale === 'en' ? '/en/privacy/' : '/privacidad/';
           <a href={privacyHref} class="underline hover:text-brand-700">{t.contact.privacyLink}</a>.
         </p>
 
-        <div class={`grid gap-3 ${hasWhatsApp ? 'sm:grid-cols-2' : ''}`}>
-          <button
-            type="submit"
-            data-channel="email"
-            class="rounded-lg bg-brand-600 px-4 py-3 font-bold text-white shadow-md transition hover:bg-brand-700"
-          >
-            {t.contact.emailBtn}
-          </button>
-          {
-            hasWhatsApp && (
-              <button
-                type="submit"
-                data-channel="whatsapp"
-                class="rounded-lg border border-emerald-600 bg-emerald-600 px-4 py-3 font-bold text-white shadow-md transition hover:bg-emerald-700"
-              >
-                {t.contact.whatsappBtn}
-              </button>
-            )
-          }
-        </div>
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-brand-600 px-4 py-3 font-bold text-white shadow-md transition hover:bg-brand-700"
+        >
+          {t.contact.submitBtn}
+        </button>
 
         <p class="text-center text-sm text-slate-500">
           {t.contact.orEmail}{' '}
@@ -97,41 +99,10 @@ const privacyHref = locale === 'en' ? '/en/privacy/' : '/privacidad/';
   </div>
 </section>
 
-<script define:vars={{ email: SITE.email, whatsapp: SITE.whatsapp, formIntro: t.contact.formIntro, formFields: t.contact.formFields, emailSubject: t.contact.emailSubject }}>
-  const form = document.getElementById('contact-form');
-
-  function buildBody(name, contact, message) {
-    return [
-      formIntro,
-      ``,
-      `${formFields.name}: ${name}`,
-      `${formFields.contact}: ${contact}`,
-      ``,
-      `${formFields.message}:`,
-      message,
-    ].join('\n');
-  }
-
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const submitter = e.submitter;
-    const channel = submitter?.getAttribute('data-channel') || 'email';
-
-    const data = new FormData(form);
-    const name = String(data.get('name') || '').trim();
-    const contact = String(data.get('contact') || '').trim();
-    const message = String(data.get('message') || '').trim();
-    if (!name || !contact || !message) return;
-
-    const body = buildBody(name, contact, message);
-
-    if (channel === 'whatsapp' && whatsapp) {
-      const text = encodeURIComponent(body);
-      window.open(`https://wa.me/${whatsapp}?text=${text}`, '_blank', 'noopener,noreferrer');
-      return;
-    }
-
-    const subject = encodeURIComponent(`${emailSubject} — ${name}`);
-    window.location.href = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(body)}`;
-  });
-</script>
+<!-- Formulario oculto para detección de Netlify en el build -->
+<form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name" />
+  <input type="text" name="contact" />
+  <textarea name="message"></textarea>
+  <input type="text" name="locale" />
+</form>
