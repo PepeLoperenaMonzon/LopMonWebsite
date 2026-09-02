@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://lopmon.com',
+  site: 'https://lopmonsoluciones.com',
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
