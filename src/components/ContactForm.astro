@@ -10,6 +10,7 @@ interface Props {
 const { locale, t } = Astro.props;
 const privacyHref = locale === 'en' ? '/en/privacy/' : '/privacidad/';
 const successPath = locale === 'en' ? '/en/thank-you/' : '/gracias/';
+const formAction = locale === 'en' ? '/en/' : '/';
 ---
 
 <section id="contacto" class="border-t border-slate-200 bg-white py-20" aria-labelledby="contacto-heading">
@@ -23,11 +24,13 @@ const successPath = locale === 'en' ? '/en/thank-you/' : '/gracias/';
       </p>
 
       <form
+        id="contact-form"
         name="contact"
         method="POST"
-        action={successPath}
+        action={formAction}
         data-netlify="true"
         netlify-honeypot="bot-field"
+        data-success-path={successPath}
         class="mx-auto max-w-md space-y-4 text-left"
       >
         <input type="hidden" name="form-name" value="contact" />
@@ -54,10 +57,10 @@ const successPath = locale === 'en' ? '/en/thank-you/' : '/gracias/';
         </div>
 
         <div>
-          <label for="contact" class="mb-1 block text-sm font-medium text-slate-700">{t.contact.contactLabel}</label>
+          <label for="email" class="mb-1 block text-sm font-medium text-slate-700">{t.contact.contactLabel}</label>
           <input
-            id="contact"
-            name="contact"
+            id="email"
+            name="email"
             type="text"
             required
             autocomplete="email"
@@ -90,6 +93,8 @@ const successPath = locale === 'en' ? '/en/thank-you/' : '/gracias/';
           {t.contact.submitBtn}
         </button>
 
+        <p id="contact-form-error" class="hidden text-center text-sm text-red-600" role="alert"></p>
+
         <p class="text-center text-sm text-slate-500">
           {t.contact.orEmail}{' '}
           <a class="font-medium text-brand-700 underline" href={`mailto:${SITE.email}`}>{SITE.email}</a>
@@ -99,10 +104,27 @@ const successPath = locale === 'en' ? '/en/thank-you/' : '/gracias/';
   </div>
 </section>
 
-<!-- Formulario oculto para detección de Netlify en el build -->
-<form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-  <input type="text" name="name" />
-  <input type="text" name="contact" />
-  <textarea name="message"></textarea>
-  <input type="text" name="locale" />
-</form>
+<script define:vars={{ successPath, formAction, errorMessage: t.contact.submitError }}>
+  const form = document.getElementById('contact-form');
+  const errorEl = document.getElementById('contact-form-error');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    errorEl?.classList.add('hidden');
+
+    const body = new URLSearchParams(new FormData(form)).toString();
+    const response = await fetch(formAction, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body,
+    });
+
+    if (response.ok) {
+      window.location.href = successPath;
+      return;
+    }
+
+    errorEl?.classList.remove('hidden');
+    if (errorEl) errorEl.textContent = errorMessage;
+  });
+</script>
