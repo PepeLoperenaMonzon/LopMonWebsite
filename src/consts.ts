@@ -15,7 +15,7 @@ export const SITE = {
     areaServed: 'Canarias',
   },
   /** Public contact email */
-  email: 'lopmonsoluciones@gmail.com',
+  email: 'hola@lopmonsoluciones.com',
   /**
    * WhatsApp Business number in international format, digits only (e.g. 34612345678).
    * Leave empty until you have the number — the WhatsApp button stays hidden.
